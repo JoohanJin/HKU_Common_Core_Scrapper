@@ -27,11 +27,11 @@ print(len(subjects))
 
 # for course_code in range(subject):
 #     URL = f"https://commoncore.hku.hk/{course_code}/"
-RESULTS = [["Title", "Description", "Offer Semester", "Lecturers", "Assessments", "Workload"]]
+RESULTS = []
 
 def get_info(keyword):
     URL = f"https://commoncore.hku.hk/{keyword}/"
-    print(f"working on {keyword}")
+    print(f"working on {keyword}!\n")
     response = get(URL)
 
     if (response.status_code != 200):
@@ -53,7 +53,7 @@ def get_info(keyword):
                 description = description + f"{text}"
         
 
-        course_title = '"'+soup.find('h1', class_='page-title').string+'"'
+        course_title = soup.find('h1', class_='page-title').string
 
         lecturer_rows = tables[-1].find_all("tr")[1:]
         lecturers = ""
@@ -92,19 +92,21 @@ def get_info(keyword):
                 workloads = workloads + f"- {title} {time}"
 
         RESULTS.append(
-            [
-                course_title,
-                description,
-                course_period,
-                lecturers,
-                assessments,
-                workloads,
-            ]
+            {
+                "course_title": course_title,
+                "description":  description,
+                "course_period": course_period,
+                "lecturer": lecturers,
+                "assessment": assessments,
+                "workload": workloads,
+            }
         )
 
 for subject in subjects:
     get_info(subject)
 
-with open("result.csv", "w") as file:
-    writer = csv.writer(file)
-    writer.writerows(RESULTS)
+file = open(f"result.csv", "w")
+file.write("Course_Title, Course_Description, Offer_Period, Lecturers, Assessments, Workloads\n")
+for RESULT in RESULTS:
+    file.write(f"\"{RESULT['course_title']}\",\"{RESULT['description']}\",\"{RESULT['course_period']}\",\"{RESULT['lecturer']}\",\"{RESULT['assessment']}\",\"{RESULT['workload']}\"\n")
+print(f"finished writing on result.csv file")
