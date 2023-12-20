@@ -2,7 +2,7 @@
 ***
 ## About this mini project:
 for HKU student, it has been a bit problem always to choose right Common Core, since it is good for your GPA boosting and also workload is pretty important.
-However, HKU does not provide a comprehensive list of Common Core courses, at least when I was a freshman and sophomore, it was pretty hard to choose the right one.
+However, HKU does not provide a comprehensive list of Common Core courses, at least when I was a freshman and sophomore, so it was pretty hard to choose the right one.
 
 Now you have a comprehensive list of common core with explanation, workload and assessment!
 
